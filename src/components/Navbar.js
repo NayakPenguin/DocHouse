@@ -15,8 +15,11 @@ const Navbar = () => {
                 <MenuItem>
                     Your Appointments
                 </MenuItem>
-                <MenuItemEnlightened href="/doc-login">
+                <MenuItemEnlightened href="/doc-register">
                         I'm Doctor
+                </MenuItemEnlightened>
+                <MenuItemEnlightened href="/doc-login">
+                        Login
                 </MenuItemEnlightened>
             </Menu>
         </Nav>

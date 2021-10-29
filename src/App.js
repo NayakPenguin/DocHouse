@@ -1,5 +1,6 @@
-import React from 'react'
+import React,{useState} from 'react'
 import DocLogin from './components/DocLogin'
+import Login from './components/Login'
 import Home from './components/Home'
 import {
   BrowserRouter as Router,
@@ -16,8 +17,11 @@ const App = () => {
         <Route exact path="/">
           <Home/>
         </Route>
-        <Route exact path="/doc-login">
+        <Route exact path="/doc-register">
           <DocLogin/>
+        </Route>
+        <Route exact path="/doc-login">
+          <Login/>
         </Route>
       </Switch>
     </Router>
