@@ -3,77 +3,23 @@ import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 
 
-const Initialstate = {
-    Name:'',
-    Email:'',
-    Password:'',
-    Number:'',
-    Desc:''
-  }
-class DocLogin extends React.Component{
-    constructor(props){
-        super(props) ;
-        this.myRef= React.createRef();
-        this.state = Initialstate ;
-      } 
-     onNameChange = (event)=>{
-        this.setState({Name : event.target.value})
-        console.log(this.state.Name) ;
-      } 
-     onEmailChange = (event)=>{
-        this.setState({Email : event.target.value})
-      } 
-     onPasswordChange = (event)=>{
-        this.setState({Password : event.target.value})
-      }
-      onNumberChange = (event)=>{
-        this.setState({Number : event.target.value})
-      }
-      onDescChange = (event)=>{
-        this.setState({Desc : event.target.value})
-      }
-      onRegister = (e)=>{
-        fetch('https://caring-hopes.herokuapp.com/register' , {
-            method : 'post' ,
-            headers : {'content-type' : 'application/json'} ,
-            body : JSON.stringify({
-              email : this.state.Email ,
-              password : this.state.Password,
-              name: this.state.Name,
-              number: this.state.Number,
-              desc: this.state.Desc
-            }) 
-          }).then(response=>response.json())
-          .then(data =>{
-            if(data=='Success!')
-            {
-                window.location.href = "http://localhost:3000/doc-login";
-                alert('User Added Succesfully , Now Login to your account!') ;
-            }
-            else{
-              alert(data) ;
-            }
-          }).catch(err=>{console.log(err)})
-          this.setState(Initialstate) ;
-      }
-    render(){
+
+const DocLogin = () => {
     return (
         <Container>
             <Component>
                 <h1>Fill the form. <br /> It's easy.</h1>
                 <RowOne>
-                    <TextField id="standard-basic" label="Full Name"  onChange={this.onNameChange} value={this.state.Name}/>
+                    <TextField id="standard-basic" label="Full Name" />
                     <TextField
                         id="standard-number"
                         label="Number"
                         type="number"
-                        value={this.state.Number}
                         InputLabelProps={{ shrink: true, }}
-                        onChange={this.onNumberChange}
                     />
                 </RowOne>
                 <RowTwo>
-                    <TextField id="standard-basic" label="Email" onChange={this.onEmailChange} value={this.state.Email} />
+                    <TextField id="standard-basic" label="Email" />
                 </RowTwo>
                 <RowTwo>
                     <TextField
@@ -81,8 +27,6 @@ class DocLogin extends React.Component{
                         label="Password"
                         type="password"
                         autoComplete="current-password"
-                        onChange={this.onPasswordChange}
-                        value={this.state.Password}
                     />
                 </RowTwo>
                 <RowTwo style={{ margin: '2rem 0 3rem 0' }}>
@@ -93,13 +37,12 @@ class DocLogin extends React.Component{
                         rows={4}
                         variant="outlined"
                         defaultValue=" "
-                        onChange={this.onDescChange}
-                        value={this.state.Desc}
                     />
                 </RowTwo>
-                <SubmitButton  onClick={this.onRegister}>
+                <SubmitButton>
                     Submit
                 </SubmitButton>
+
             </Component>
 
             <RightText>
@@ -107,8 +50,7 @@ class DocLogin extends React.Component{
                 <p>At DocHouse, we aim to unleash the full potential of our colleagues, our teams and our customers. We respect differences in people and we value that everyone has specific talents to bring to the table. We believe that self-organization and a sense of purpose are important elements to unlock our full potential. We work in a humane way, though we don’t shy away from taking tough decisions when needed.</p>
             </RightText>
         </Container>
-    ) ;
-    }
+    )
 }
 
 export default DocLogin

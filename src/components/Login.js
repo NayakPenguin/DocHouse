@@ -1,82 +1,86 @@
-import React from 'react' ;
-import styled from 'styled-components' ;
+import React from 'react';
+import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import { render } from '@testing-library/react';
-import Dashboard from './Dashboard' ;
+import Dashboard from './Dashboard';
 
-class Login extends React.Component{
-    constructor(props){
-        super(props) ;
+class Login extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
-          Name:'',
-          Email:'',
-          Password:'',
-          route:'login'
+            Name: '',
+            Email: '',
+            Password: '',
+            route: 'login'
         }
-      } 
-    componentDidMount(){
-        fetch('https://caring-hopes.herokuapp.com').then(response => response.json())
-        .then(console.log) ;
-     }
-     onNameChange = (event)=>{
-        this.setState({Name : event.target.value})
-      } 
-     onEmailChange = (event)=>{
-        this.setState({Email : event.target.value})
-      } 
-      onPasswordChange = (event)=>{
-        this.setState({Password : event.target.value})
-      }
-      onSignin = ()=>{
-        fetch('https://caring-hopes.herokuapp.com/signin' , {
-            method : 'post' ,
-            headers : {'content-type' : 'application/json'} ,
-            body : JSON.stringify({
-              email : this.state.Email ,
-              password : this.state.Password,
-              name: this.state.Name
-            })
-          }).then(response=>response.json())
-          .then(user =>{
-            if(user.name)
-            {
-             this.setState({route:'Dashboard'}) ;
-            }
-            else{
-              alert(user) ;
-            }
-          })
-      }
-    render(){
-    return (
-        <Container>
-            {this.state.route == 'login'?
-            <Component>
-                <h1>Sign Up <br /> It's easy.</h1>
-                <RowOne>
-                    <TextField id="standard-basic" label="Full Name" onChange={this.onNameChange}/>
-                </RowOne>
-                <RowTwo>
-                    <TextField id="standard-basic" label="Email" onChange={this.onEmailChange} />
-                </RowTwo>
-                <RowTwo>
-                    <TextField
-                        id="standard-password-input"
-                        label="Password"
-                        type="password"
-                        autoComplete="current-password"
-                        onChange={this.onPasswordChange}
-                    />
-                </RowTwo>
-                <SubmitButton  onClick={this.onSignin}>
-                    Log In
-                </SubmitButton>
-
-            </Component>
-            :<Dashboard name={this.state.Name} email={this.state.Email}/>
     }
-        </Container>
-    ) ;
+    componentDidMount() {
+        fetch('https://caring-hopes.herokuapp.com').then(response => response.json())
+            .then(console.log);
+    }
+    onNameChange = (event) => {
+        this.setState({ Name: event.target.value })
+    }
+    onEmailChange = (event) => {
+        this.setState({ Email: event.target.value })
+    }
+    onPasswordChange = (event) => {
+        this.setState({ Password: event.target.value })
+    }
+    onSignin = () => {
+        fetch('https://caring-hopes.herokuapp.com/signin', {
+            method: 'post',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+                email: this.state.Email,
+                password: this.state.Password,
+                name: this.state.Name
+            })
+        }).then(response => response.json())
+            .then(user => {
+                if (user.name) {
+                    this.setState({ route: 'Dashboard' });
+                }
+                else {
+                    alert(user);
+                }
+            })
+    }
+    render() {
+        return (
+            <Container>
+                {this.state.route == 'login' ?
+                    <Component>
+                        <h1>Sign In</h1>
+                        <p>"Illness is the doctor to whom we pay most heed; to kindness, to knowledge, we make promise only; pain we obey."</p>
+                        <RowTwo>
+                            <TextField id="outlined-basic" variant="outlined" label="Full Name" onChange={this.onNameChange}/>
+                        </RowTwo>
+
+                        <RowTwo>
+                            <TextField id="outlined-basic" variant="outlined" label="Email" onChange={this.onEmailChange} />
+                        </RowTwo>
+                        <RowTwo>
+                            <TextField
+                                 id="outlined-basic" variant="outlined"
+                                label="Password"
+                                type="password"
+                                autoComplete="current-password"
+                                onChange={this.onPasswordChange}
+                            />
+                        </RowTwo>
+                        <LoginButton onClick={this.onSignin}>
+                            Sign In
+                        </LoginButton>
+
+                    </Component>
+                    : <Dashboard name={this.state.Name} email={this.state.Email} />
+                }
+                <Component>
+                    <span>Don't have an account? <a href="/">Sign up</a></span>
+                </Component>
+            </Container>
+        );
     }
 }
 
@@ -85,37 +89,52 @@ export default Login
 const Container = styled.div`
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     padding: 10vh 14vw;
     align-items: center;
+    background-color: #fafafa;
 `
 
 const Component = styled.div`
     width: 50%;
     padding-right: 2.5rem;
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+
     h1{
         font-size: 3.5rem;
         line-height: 3.8rem;
-        margin-bottom: 3rem;
     }
-`
+    
+    p{
+        margin: 2rem 0;
+        color: grey;
+        width: 400px;
+        text-align: center;
+        font-size: 0.95rem;
+    }
 
-const RowOne = styled.div`
-    margin-bottom: 1.5rem;
-    width: 450px;
-    display: flex;
-    justify-content: space-between;
+    span {
+        font-size: 0.85rem;
 
-
-    div{
-        /* margin-right: 0.75rem; */
-        width: 90%;
+        a{
+            text-decoration: none;
+            color: cornflowerblue;
+            font-weight: 600;
+        }
     }
 `
 
 const RowTwo = styled.div`
-    margin-bottom: 1.5rem;
-    width: 425px;
+    margin-bottom: 0.5rem;
+    width: 400px;
     
     div{
         width: 100%;
@@ -133,6 +152,23 @@ const SubmitButton = styled.button`
     
     &:hover{
         background: #e3131d;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+`
+
+const LoginButton = styled.button`
+    border: none;
+    color: #fff;
+    background-color: #0095f6;
+    padding: 0.55rem 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+    width: 400px;
+    border-radius: 5px;
+    
+    &:hover{
+        background: #1383cb;
         transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
 `

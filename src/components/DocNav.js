@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from "react-router-dom";
+import { Avatar } from '@material-ui/core';
 
-const Navbar = () => {
+const DocNav = () => {
     return (
         <Nav>
             <Logo>
@@ -10,20 +11,19 @@ const Navbar = () => {
             </Logo>
             <Menu>
                 <MenuItem>
-                    Find Doctors
+                    Home
                 </MenuItem>
                 <MenuItem>
-                    Your Appointments
+                    Show Analytics
                 </MenuItem>
-                <MenuItemEnlightened href="/doc-login">
-                        I'm Doctor
-                </MenuItemEnlightened>
+                <Avatar style={{cursor: 'pointer', marginRight: '0.4rem'}}/>
+                <ion-icon name="chevron-down-outline"  style={{cursor: 'pointer'}}></ion-icon>
             </Menu>
         </Nav>
     )
 }
 
-export default Navbar
+export default DocNav
 
 const Nav = styled.div`
     position: sticky;
@@ -47,7 +47,6 @@ const Logo = styled.div`
 `
 
 const Menu = styled.div`
-    width: 400px;
     overflow: hidden;
     display: flex; 
     justify-content: space-between;
@@ -58,6 +57,7 @@ const MenuItem = styled.div`
     cursor: pointer;
     font-size: 0.75rem;
     color: grey;
+    margin-right: 2rem;
 
     &:hover{
         color: #333;

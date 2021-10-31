@@ -1,25 +1,43 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import Navbar from './Navbar'
+import ShowDoctors from './ShowDoctors';
 
 const Home = () => {
 
+    
+    const [searchText, setSearchText] = useState("");
+    const [showDoctors, setShowDoctors] = useState(false)
     const [firstQuestion, setFirstQuestion] = useState(false);
     const [secondQuestion, setSecondQuestion] = useState(false);
     const [thirdQuestion, setThirdQuestion] = useState(false);
     const [fourthQuestion, setFourthQuestion] = useState(false);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if(searchText){
+            setShowDoctors(true);
+        }
+
+
+    }
+
 
     return (
-        <>
+        <> 
+        {   
+            !showDoctors ?
+            (
+            <>
             <PageOne>
                 <Navbar />
                 <Container>
                     <h1>Reach a doctor with just a click.</h1>
                     <p>DocHouse is an initiative by Skyhigh Clinic to bring world-class health care service to the location & time that suits you best. You could be travelling or tied up with your schedule - wherever and whenever - simply log-in and have access to world-class medical care.</p>
-                    <SearchBox>
-                        <input type="text" placeholder="Find doctor by speciality" />
-                        <button>Search</button>
+                    <SearchBox onSubmit={handleSubmit}>
+                        <input type="text" placeholder="Find doctor by speciality" value={searchText} onChange={(e) => setSearchText(e.target.value)}/>
+                        <button type="submit">Search</button>
                     </SearchBox>
                     <AdvertisementMenu>
                         <div>
@@ -119,12 +137,20 @@ const Home = () => {
                 <PageThreeContent>
                     <PageThreeContentItem className="question" onClick={e => setFirstQuestion(!firstQuestion)}>
                         <div>
-                            Are the specialists available 24/7?
+                            What is an online doctor consultation or online medical consultation?
                             <ion-icon name="add-circle-outline" id="add-circle-outline"></ion-icon>
                         </div>
                         {
                             firstQuestion ? (
-                                <p className="answer">Our specialists are available for consultation from 9AM to 9PM on all the 7 days of the week</p>
+                                <p className="answer">
+                                    When you speak to a doctor about your health concerns through an audio/video/
+                                    chat, it is known as an online doctor consultation or online medical consultation.
+                                    This is a good alternative for times when you cannot visit a doctor physically at the clinic or hospital. An online doctor consultation works the same way as a physical
+                                    consultation where you get a prescription after the consultation is complete. Some
+                                    of the benefits of an online medical consultation at Apollo 24/7 are that you can consult
+                                    a doctor at the convenience of your home and can order the prescribed medicines by using
+                                    the ‘Order Medicines’ option.
+                                </p>
                             ) : (
                                 <></>
                             )
@@ -132,12 +158,23 @@ const Home = () => {
                     </PageThreeContentItem>
                     <PageThreeContentItem className="question" onClick={e => setSecondQuestion(!secondQuestion)}>
                         <div>
-                            Are the specialists available 24/7?
+                            How do I consult a doctor online now?
                             <ion-icon name="add-circle-outline" id="add-circle-outline"></ion-icon>
                         </div>
                         {
                             secondQuestion ? (
-                                <p className="answer">Our specialists are available for consultation from 9AM to 9PM on all the 7 days of the week</p>
+                                <p className="answer">
+                                    You can book an online consultation either on the website
+                                    or mobile app of Apollo 24/7 in two ways.
+                                    Click on the ‘Find a Doctor’ button on the homepage of the website/app,
+                                    select a specialty or type the name of the doctor directly. Once you select a
+                                    doctor, you can click on the “Consult Now’ button to start the online consultation.
+                                    If you're looking for a doctor based on your symptoms, you may start by going to
+                                    the homepage of the website/app. Then click on the ‘Track Symptoms’ tab,
+                                    search for your symptoms or select a few of them based on your health condition.
+                                    Click ‘Show Doctors’, select a doctor and click on the
+                                    ‘Consult Now’ button to start the online consultation.
+                                </p>
                             ) : (
                                 <></>
                             )
@@ -145,12 +182,15 @@ const Home = () => {
                     </PageThreeContentItem>
                     <PageThreeContentItem className="question" onClick={e => setThirdQuestion(!thirdQuestion)}>
                         <div>
-                            Are the specialists available 24/7?
+                            Where is my prescription for the online doctor consultation?
                             <ion-icon name="add-circle-outline" id="add-circle-outline"></ion-icon>
                         </div>
                         {
                             thirdQuestion ? (
-                                <p className="answer">Our specialists are available for consultation from 9AM to 9PM on all the 7 days of the week</p>
+                                <p className="answer">
+                                    You can find your prescription for your online consult on the ‘Health Records’ tab. Once you click on this tab,
+                                    you will be able to view/download your prescription by clicking on the ‘Consults Rx’ tab.
+                                </p>
                             ) : (
                                 <></>
                             )
@@ -158,12 +198,15 @@ const Home = () => {
                     </PageThreeContentItem>
                     <PageThreeContentItem className="question" onClick={e => setFourthQuestion(!fourthQuestion)}>
                         <div>
-                            Are the specialists available 24/7?
+                            How do I pay for the online/offline doctor consultations?
                             <ion-icon name="add-circle-outline" id="add-circle-outline"></ion-icon>
                         </div>
                         {
                             fourthQuestion ? (
-                                <p className="answer">Our specialists are available for consultation from 9AM to 9PM on all the 7 days of the week</p>
+                                <p className="answer">Online consultations are prepaid and the payment can be 
+                                made by either of the given ways – Paytm, Debit/Credit Card, and Netbanking. 
+                                For offline consultations, you will need to make a partial payment online and 
+                                the rest can be paid to the doctor at the hospital/clinic.</p>
                             ) : (
                                 <></>
                             )
@@ -199,6 +242,14 @@ const Home = () => {
             <Footer>
                 © 2021 Zuckerburg Tech Health Services
             </Footer>
+            </>)
+        : (
+            <>
+                <ShowDoctors docType={searchText}/>
+            </>
+        )    
+        
+        }
         </>
     )
 }
@@ -209,7 +260,8 @@ export default Home
 const PageOne = styled.div`
     min-height: 100vh;
     /* background: linear-gradient(  rgb(0 0 0 / 75%),rgb(0 0 0 / 75%) ), url('https://wallpapercave.com/wp/wp2789220.jpg') center center / cover fixed no-repeat; */
-    background: #f7f7f859;
+    /* background: #f7f7f859; */
+    background: #f0f1eb;
 `
 
 const Container = styled.div`
@@ -233,7 +285,7 @@ const Container = styled.div`
     }
 `
 
-const SearchBox = styled.div`
+const SearchBox = styled.form`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -249,7 +301,7 @@ const SearchBox = styled.div`
         width: 80%;
         outline: none;
         border: none;
-        background: transparent;
+        background: white;
         /* color: white; */
         
         padding: 0.8rem 1.5rem;
@@ -281,7 +333,7 @@ const AdvertisementMenu = styled.div`
     justify-content: space-between;
     overflow: hidden;
     position: absolute;
-    bottom: 70px;
+    bottom: 3vh;
 
     div{
         width: 33%;
