@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import { render } from '@testing-library/react';
 import Dashboard from './Dashboard';
 
-class Login extends React.Component {
+class PatientLogin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,10 +14,7 @@ class Login extends React.Component {
             route: 'login'
         }
     }
-    componentDidMount() {
-        fetch('https://caring-hopes.herokuapp.com').then(response => response.json())
-            .then(console.log);
-    }
+    componentDidMount() {}
     onNameChange = (event) => {
         this.setState({ Name: event.target.value })
     }
@@ -28,7 +25,7 @@ class Login extends React.Component {
         this.setState({ Password: event.target.value })
     }
     onSignin = () => {
-        fetch('https://caring-hopes.herokuapp.com/signin', {
+        fetch('https://caring-hopes.herokuapp.com/signinpeople', {
             method: 'post',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({
@@ -38,12 +35,7 @@ class Login extends React.Component {
             })
         }).then(response => response.json())
             .then(user => {
-                if (user.name) {
-                    this.setState({ route: 'Dashboard' });
-                }
-                else {
-                    alert(user);
-                }
+                alert(user) ;
             })
     }
     render() {
@@ -52,7 +44,7 @@ class Login extends React.Component {
                 {this.state.route == 'login' ?
                     <Component>
                         <h1>Sign In</h1>
-                        <p>"Illness is the doctor to whom we pay most heed; to kindness, to knowledge, we make promise only; pain we obey."</p>
+                        <p>"Some catchy slogan"</p>
                         <RowTwo>
                             <TextField id="outlined-basic" variant="outlined" label="Full Name" onChange={this.onNameChange}/>
                         </RowTwo>
@@ -77,14 +69,14 @@ class Login extends React.Component {
                     : <Dashboard name={this.state.Name} email={this.state.Email} />
                 }
                 <Component>
-                    <span>Don't have an account? <a href="/doc-register">Sign up</a></span>
+                    <span>Don't have an account? <a href="/patient-register">Sign up</a></span>
                 </Component>
             </Container>
         );
     }
 }
 
-export default Login
+export default PatientLogin
 
 const Container = styled.div`
     min-height: 100vh;
