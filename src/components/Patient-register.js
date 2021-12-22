@@ -7,10 +7,9 @@ const Initialstate = {
     Name:'',
     Email:'',
     Password:'',
-    Number:'',
-    Desc:''
+    Number:''
   }
-class DocLogin extends React.Component{
+class Patientregister extends React.Component{
     constructor(props){
         super(props) ;
         this.myRef= React.createRef();
@@ -29,9 +28,6 @@ class DocLogin extends React.Component{
       onNumberChange = (event)=>{
         this.setState({Number : event.target.value})
       }
-      onDescChange = (event)=>{
-        this.setState({Desc : event.target.value})
-      }
       onRegister = (e)=>{
         fetch('https://caring-hopes.herokuapp.com/register' , {
             method : 'post' ,
@@ -40,14 +36,13 @@ class DocLogin extends React.Component{
               email : this.state.Email ,
               password : this.state.Password,
               name: this.state.Name,
-              number: this.state.Number,
-              desc: this.state.Desc
+              number: this.state.Number
             }) 
           }).then(response=>response.json())
           .then(data =>{
             if(data=='Success!')
             {
-                window.location.href = "https://caring-hopes-frontend.herokuapp.com/doc-login";
+                window.location.href = "https://caring-hopes-frontend.herokuapp.com/patient-login";
                 alert('User Added Succesfully , Now Login to your account!') ;
             }
             else{
@@ -85,18 +80,6 @@ class DocLogin extends React.Component{
                         value={this.state.Password}
                     />
                 </RowTwo>
-                <RowTwo style={{ margin: '2rem 0 3rem 0' }}>
-                    <TextField
-                        id="outlined-multiline-static"
-                        label="Describe your Speciality"
-                        multiline
-                        rows={4}
-                        variant="outlined"
-                        defaultValue=" "
-                        onChange={this.onDescChange}
-                        value={this.state.Desc}
-                    />
-                </RowTwo>
                 <SubmitButton  onClick={this.onRegister}>
                     Submit
                 </SubmitButton>
@@ -111,7 +94,7 @@ class DocLogin extends React.Component{
     }
 }
 
-export default DocLogin
+export default Patientregister
 
 const Container = styled.div`
     min-height: 100vh;

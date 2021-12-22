@@ -1,6 +1,6 @@
 import React from 'react'
 import MenuIcon from '@material-ui/icons/Menu';
-import CallEndIcon from '@material-ui/icons/CallEnd';
+//import CallEndIcon from '@material-ui/icons/CallEnd';
 import styled from 'styled-components';
 
 const Appointments = () => {
